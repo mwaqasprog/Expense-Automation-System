@@ -1,4 +1,8 @@
 
+using ApplicationLayer.ServiceImplementations;
+using ApplicationLayer.ServiceInterfaces;
+using Microsoft.AspNetCore.Hosting;
+
 namespace Expense_Automation_API
 {
     public class Program
@@ -8,11 +12,17 @@ namespace Expense_Automation_API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            
+            //Dependency Injection Service Configuration
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+
+            
 
             var app = builder.Build();
 
